@@ -1,0 +1,5 @@
+dist
+node_modules
+yarnpkg
+yarn.lock
+yarn-error.log
