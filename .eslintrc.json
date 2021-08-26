@@ -80,7 +80,7 @@
     "prettier/prettier": [
       "error",
       {
-        "bracketSpacing": "off"
+        "bracketSpacing": true
       }
     ]
   },
