@@ -77,12 +77,7 @@
         ]
       }
     ],
-    "prettier/prettier": [
-      "error",
-      {
-        "bracketSpacing": true
-      }
-    ]
+    "prettier/prettier": "error"
   },
   "settings": {
     "import/resolver": {
