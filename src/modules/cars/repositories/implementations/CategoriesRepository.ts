@@ -1,4 +1,4 @@
-import { Category } from '../../model/Category'
+import { Category, CategoryEntity, CategoryType } from '../../entities/Category'
 import { ICategoriesRepository } from '../ICategoriesRepository'
 
 interface ICreateCategoryDTO {
@@ -7,37 +7,31 @@ interface ICreateCategoryDTO {
 }
 
 class CategoriesRepository implements ICategoriesRepository {
-  private categories: Category[]
+  private repository: CategoryEntity
 
-  private static INSTANCE: CategoriesRepository
-
-  private constructor() {
-    this.categories = []
+  constructor() {
+    this.repository = new Category().instance()
   }
 
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository()
-    }
-
-    return CategoriesRepository.INSTANCE
-  }
-
-  create({ name, description }: ICreateCategoryDTO): Category {
-    const category = new Category()
-    Object.assign(category, { name, description })
-
-    this.categories.push(category)
+  async create({
+    name,
+    description,
+  }: ICreateCategoryDTO): Promise<CategoryType> {
+    const category = await this.repository.create({
+      data: { name, description, created_at: new Date() },
+    })
 
     return category
   }
 
-  list(): Category[] {
-    return this.categories
+  async list(): Promise<CategoryType[]> {
+    const categories = await this.repository.findMany()
+
+    return categories
   }
 
-  findByName(name: string): Category {
-    const category = this.categories.find(c => c.name === name)
+  async findByName(name: string): Promise<CategoryType> {
+    const category = await this.repository.findFirst({ where: { name } })
 
     return category
   }
