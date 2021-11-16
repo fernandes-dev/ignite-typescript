@@ -1,26 +1,33 @@
-import { Specification } from '../../entities/Specification'
+import {
+  Specification,
+  SpecificationEntity,
+  SpecificationType,
+} from '../../entities/Specification'
 import {
   ICreateSpecificationDTO,
   ISpecificationsRepository,
 } from '../ISpecificationsRepository'
 
 class SpecificationsRepository implements ISpecificationsRepository {
-  private specifications: Specification[]
+  private repository: SpecificationEntity
 
   constructor() {
-    this.specifications = []
+    this.repository = new Specification().instance()
   }
 
-  create({ name, description }: ICreateSpecificationDTO): void {
-    const specification = new Specification()
+  async create({
+    name,
+    description,
+  }: ICreateSpecificationDTO): Promise<SpecificationType> {
+    const specification = await this.repository.create({
+      data: { name, description, created_at: new Date() },
+    })
 
-    Object.assign(specification, { name, description })
-
-    this.specifications.push(specification)
+    return specification
   }
 
-  findByName(name: string): Specification {
-    const specification = this.specifications.find(s => s.name === name)
+  async findByName(name: string): Promise<SpecificationType> {
+    const specification = await this.repository.findFirst({ where: { name } })
 
     return specification
   }

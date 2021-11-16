@@ -1,11 +1,16 @@
 import 'reflect-metadata'
+import cors from 'cors'
 import express from 'express'
 import swaggerUi from 'swagger-ui-express'
 
 import { router } from './routes'
 import swaggerFile from './swagger.json'
 
+import './shared/container'
+
 const app = express()
+
+app.use(cors())
 
 app.use(express.json())
 

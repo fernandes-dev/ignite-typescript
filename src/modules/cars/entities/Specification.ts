@@ -1,15 +1,21 @@
-import { v4 as uuidV4 } from 'uuid'
+import { Prisma, PrismaClient, specification } from '.prisma/client'
 
+export type SpecificationEntity = Prisma.specificationDelegate<
+  Prisma.RejectOnNotFound | Prisma.RejectPerOperation
+>
+
+export type SpecificationType = specification
 class Specification {
-  id?: string
-  name: string
-  description: string
-  created_at?: Date
+  private specification: SpecificationEntity
 
   constructor() {
-    if (!this.id) this.id = uuidV4()
+    const prisma = new PrismaClient()
 
-    if (!this.created_at) this.created_at = new Date()
+    this.specification = prisma.specification
+  }
+
+  instance(): SpecificationEntity {
+    return this.specification
   }
 }
 
