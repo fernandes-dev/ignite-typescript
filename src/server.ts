@@ -10,6 +10,7 @@ import { router } from './routes/routes'
 import swaggerFile from './swagger.json'
 
 import './shared/container'
+import { AppError } from './errors/AppError'
 
 dotenv.config()
 
@@ -26,11 +27,19 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.use(router)
 
 app.use(
-  (error: Error, request: Request, response: Response, next: NextFunction) => {
-    if (error)
+  (
+    error: unknown,
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => {
+    if (error instanceof Error)
       return response
         .status(500)
         .json({ error: error instanceof Error ? error.message : error })
+
+    if (error instanceof AppError)
+      return response.status(error.statusCode).json({ error: error.message })
 
     return next()
   }
