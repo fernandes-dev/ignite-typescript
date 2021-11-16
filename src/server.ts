@@ -1,14 +1,17 @@
 import 'reflect-metadata'
 import cors from 'cors'
+import dotenv from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
 import swaggerUi from 'swagger-ui-express'
 
 import 'express-async-errors'
 
-import { router } from './routes/index.routes'
+import { router } from './routes/routes'
 import swaggerFile from './swagger.json'
 
 import './shared/container'
+
+dotenv.config()
 
 const app = express()
 
