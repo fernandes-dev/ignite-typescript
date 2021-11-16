@@ -20,7 +20,7 @@ class SpecificationsRepository implements ISpecificationsRepository {
     description,
   }: ICreateSpecificationDTO): Promise<SpecificationType> {
     const specification = await this.repository.create({
-      data: { name, description, created_at: new Date() },
+      data: { name, description },
     })
 
     return specification

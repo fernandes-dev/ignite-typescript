@@ -1,21 +1,21 @@
-import { Prisma, PrismaClient, specification } from '.prisma/client'
+import { Prisma, PrismaClient, specifications } from '.prisma/client'
 
-export type SpecificationEntity = Prisma.specificationDelegate<
+export type SpecificationEntity = Prisma.specificationsDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
 >
 
-export type SpecificationType = specification
+export type SpecificationType = specifications
 class Specification {
-  private specification: SpecificationEntity
+  private specifications: SpecificationEntity
 
   constructor() {
     const prisma = new PrismaClient()
 
-    this.specification = prisma.specification
+    this.specifications = prisma.specifications
   }
 
   instance(): SpecificationEntity {
-    return this.specification
+    return this.specifications
   }
 }
 

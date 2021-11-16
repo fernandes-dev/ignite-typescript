@@ -7,16 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model category {
-  id          String   @id @default(uuid())
+model categories {
+  id          String    @id @default(uuid())
   name        String
   description String?
-  created_at  DateTime
+  created_at  DateTime? @default(now())
 }
 
-model specification {
-  id          String   @id @default(uuid())
+model specifications {
+  id          String    @id @default(uuid())
   name        String
   description String?
-  created_at  DateTime
+  created_at  DateTime? @default(now())
+}
+
+model users {
+  id             String    @id @default(uuid())
+  name           String
+  user_name      String    @unique
+  email          String    @unique
+  password       String
+  driver_license String
+  is_admin       Boolean   @default(false)
+  created_at     DateTime? @default(now())
 }

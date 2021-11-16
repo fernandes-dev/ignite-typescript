@@ -1,22 +1,22 @@
-import { category, Prisma, PrismaClient } from '.prisma/client'
+import { categories, Prisma, PrismaClient } from '.prisma/client'
 
-export type CategoryEntity = Prisma.categoryDelegate<
+export type CategoryEntity = Prisma.categoriesDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
 >
 
-export type CategoryType = category
+export type CategoryType = categories
 
 class Category {
-  private category: CategoryEntity
+  private categories: CategoryEntity
 
   constructor() {
     const prisma = new PrismaClient()
 
-    this.category = prisma.category
+    this.categories = prisma.categories
   }
 
   instance(): CategoryEntity {
-    return this.category
+    return this.categories
   }
 }
 
