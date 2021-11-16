@@ -1,4 +1,6 @@
-import { Prisma, PrismaClient, specifications } from '.prisma/client'
+import { Prisma, specifications } from '.prisma/client'
+
+import { database } from '../../../database'
 
 export type SpecificationEntity = Prisma.specificationsDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
@@ -9,9 +11,7 @@ class Specification {
   private specifications: SpecificationEntity
 
   constructor() {
-    const prisma = new PrismaClient()
-
-    this.specifications = prisma.specifications
+    this.specifications = database.specifications
   }
 
   instance(): SpecificationEntity {

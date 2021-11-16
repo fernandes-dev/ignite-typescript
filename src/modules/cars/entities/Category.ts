@@ -1,4 +1,6 @@
-import { categories, Prisma, PrismaClient } from '.prisma/client'
+import { categories, Prisma } from '.prisma/client'
+
+import { database } from '../../../database'
 
 export type CategoryEntity = Prisma.categoriesDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
@@ -10,9 +12,7 @@ class Category {
   private categories: CategoryEntity
 
   constructor() {
-    const prisma = new PrismaClient()
-
-    this.categories = prisma.categories
+    this.categories = database.categories
   }
 
   instance(): CategoryEntity {
