@@ -1,4 +1,5 @@
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
+import { IUpdateUserDTO } from '../../dtos/IUpdateUserDTO'
 import { User, UserEntity, UserType } from '../../entities/User'
 import { IUsersRepository } from '../IUsersRepository'
 
@@ -30,6 +31,30 @@ class UsersRepository implements IUsersRepository {
 
   async findById(user_id: string): Promise<UserType> {
     const user = await this.repository.findUnique({ where: { id: user_id } })
+
+    return user
+  }
+
+  async update({
+    user_id,
+    name,
+    email,
+    password,
+    avatar,
+    driver_license,
+    is_admin,
+  }: IUpdateUserDTO): Promise<UserType> {
+    const user = await this.repository.update({
+      data: {
+        name,
+        email,
+        password,
+        avatar,
+        driver_license,
+        is_admin,
+      },
+      where: { id: user_id },
+    })
 
     return user
   }

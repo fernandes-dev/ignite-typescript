@@ -27,21 +27,16 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.use(router)
 
 app.use(
-  (
-    error: unknown,
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ) => {
-    if (error instanceof Error)
-      return response
-        .status(500)
-        .json({ error: error instanceof Error ? error.message : error })
-
+  (error: unknown, request: Request, response: Response, _: NextFunction) => {
     if (error instanceof AppError)
       return response.status(error.statusCode).json({ error: error.message })
 
-    return next()
+    return response.status(500).json({
+      error:
+        error instanceof Error
+          ? `Internal server error - ${error.message}`
+          : error,
+    })
   }
 )
 
