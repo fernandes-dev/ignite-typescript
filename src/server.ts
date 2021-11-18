@@ -6,11 +6,10 @@ import swaggerUi from 'swagger-ui-express'
 
 import 'express-async-errors'
 
-import { router } from './routes/routes'
-import swaggerFile from './swagger.json'
-
 import './shared/container'
 import { AppError } from './errors/AppError'
+import { router } from './routes/routes'
+import swaggerFile from './swagger.json'
 
 dotenv.config()
 

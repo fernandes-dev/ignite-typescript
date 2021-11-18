@@ -1,4 +1,4 @@
-import 'reflect-metadata'
+import { AppError } from '../../../../errors/AppError'
 import { CategoriesRepositoryInMemory } from '../../repositories/in-memory/CategoriesRepositoryInMemory'
 import { CreateCategoryUseCase } from './CreateCategoryUseCase'
 
@@ -25,8 +25,19 @@ describe('Create Category', () => {
       category.name
     )
 
-    console.log(createdCategory)
-
     expect(createdCategory).toHaveProperty('id')
+  })
+
+  it('should not be able to create a new category with name exists', async () => {
+    expect(async () => {
+      const category = {
+        name: 'new category',
+        description: 'new category description',
+      }
+
+      await createCategoryUseCase.execute(category)
+
+      await createCategoryUseCase.execute(category)
+    }).rejects.toBeInstanceOf(AppError)
   })
 })
