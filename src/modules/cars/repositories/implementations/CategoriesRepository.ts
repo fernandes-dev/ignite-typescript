@@ -10,7 +10,7 @@ class CategoriesRepository implements ICategoriesRepository {
   private repository: CategoryEntity
 
   constructor() {
-    this.repository = new Category().instance()
+    this.repository = Category.instance()
   }
 
   async create({

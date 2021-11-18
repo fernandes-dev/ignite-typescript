@@ -7,7 +7,7 @@ class UsersRepository implements IUsersRepository {
   private repository: UserEntity
 
   constructor() {
-    this.repository = new User().instance()
+    this.repository = User.instance()
   }
 
   async create({

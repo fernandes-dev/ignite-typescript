@@ -4,3 +4,5 @@ yarnpkg
 yarn.lock
 yarn-error.log
 tmp/avatar/**
+
+coverage
