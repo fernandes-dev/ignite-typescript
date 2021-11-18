@@ -1,4 +1,5 @@
-import { Category, CategoryType } from '../../entities/Category'
+import { CategoryType, Category } from '@modules/cars/entities/Category'
+
 import { ICategoriesRepository } from '../ICategoriesRepository'
 import { ICreateCategoryDTO } from '../implementations/CategoriesRepository'
 

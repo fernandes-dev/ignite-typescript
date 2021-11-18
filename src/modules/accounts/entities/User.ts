@@ -1,8 +1,7 @@
 import { v4 as uuidV4 } from 'uuid'
+import { database } from '@database/databaseConnection'
 
 import { Prisma, users } from '.prisma/client'
-
-import { database } from '../../../database'
 
 export type UserEntity = Prisma.usersDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
@@ -36,7 +35,7 @@ class User {
   }
 
   static instance(): UserEntity {
-    if (this.users) this.users = database.users
+    if (!this.users) this.users = database.users
 
     return this.users
   }

@@ -1,8 +1,7 @@
 import { v4 as uuidV4 } from 'uuid'
+import { database } from '@database/databaseConnection'
 
 import { categories, Prisma } from '.prisma/client'
-
-import { database } from '../../../database'
 
 export type CategoryEntity = Prisma.categoriesDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
@@ -31,7 +30,7 @@ class Category {
   }
 
   static instance(): CategoryEntity {
-    if (this.categories) this.categories = database.categories
+    if (!this.categories) this.categories = database.categories
 
     return this.categories
   }

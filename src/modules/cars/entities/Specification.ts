@@ -1,6 +1,7 @@
-import { Prisma, specifications } from '.prisma/client'
+import { database } from '@database/databaseConnection'
+import { v4 as uuidV4 } from 'uuid'
 
-import { database } from '../../../database'
+import { Prisma, specifications } from '.prisma/client'
 
 export type SpecificationEntity = Prisma.specificationsDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
@@ -8,13 +9,28 @@ export type SpecificationEntity = Prisma.specificationsDelegate<
 
 export type SpecificationType = specifications
 class Specification {
-  private specifications: SpecificationEntity
+  private static specifications: SpecificationEntity
+
+  id: string
+
+  name: string
+
+  description: string
+
+  created_at: Date
 
   constructor() {
-    this.specifications = database.specifications
+    return {
+      id: uuidV4(),
+      name: this.name,
+      description: this.description,
+      created_at: new Date(),
+    }
   }
 
-  instance(): SpecificationEntity {
+  static instance(): SpecificationEntity {
+    if (!this.specifications) this.specifications = database.specifications
+
     return this.specifications
   }
 }

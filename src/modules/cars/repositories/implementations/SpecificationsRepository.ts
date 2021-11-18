@@ -1,11 +1,12 @@
 import {
-  Specification,
   SpecificationEntity,
+  Specification,
   SpecificationType,
-} from '../../entities/Specification'
+} from '@modules/cars/entities/Specification'
+
 import {
-  ICreateSpecificationDTO,
   ISpecificationsRepository,
+  ICreateSpecificationDTO,
 } from '../ISpecificationsRepository'
 
 class SpecificationsRepository implements ISpecificationsRepository {
