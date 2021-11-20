@@ -1,5 +1,6 @@
-import { database } from '@database/databaseConnection'
 import { v4 as uuidV4 } from 'uuid'
+
+import { database } from '@shared/infra/prisma/databaseConnection'
 
 import { Prisma, specifications } from '.prisma/client'
 

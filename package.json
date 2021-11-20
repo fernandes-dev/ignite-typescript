@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --inspect --ignore-watch node_modules --respawn --exit-child src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --inspect --ignore-watch node_modules --respawn --exit-child src/shared/infra/http/server.ts",
     "db:start": "docker-compose up -d",
     "test": "jest"
   },

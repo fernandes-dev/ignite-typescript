@@ -6,12 +6,15 @@ import swaggerUi from 'swagger-ui-express'
 
 import 'express-async-errors'
 
-import './shared/container'
-import { AppError } from './errors/AppError'
+import '@shared/container'
+import { AppError } from '@shared/errors/AppError'
+
+import swaggerFile from '../../../swagger.json'
 import { router } from './routes/routes'
-import swaggerFile from './swagger.json'
 
 dotenv.config()
+
+const serverPort = process.env.PORT || 3333
 
 const app = express()
 
@@ -26,6 +29,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.use(router)
 
 app.use(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (error: unknown, request: Request, response: Response, _: NextFunction) => {
     if (error instanceof AppError)
       return response.status(error.statusCode).json({ error: error.message })
@@ -39,4 +43,7 @@ app.use(
   }
 )
 
-app.listen(3333, () => console.log('Server is Running'))
+app.listen(serverPort, () =>
+  // eslint-disable-next-line no-console
+  console.log(`🚀 server is running on port: ${serverPort}`)
+)

@@ -15,17 +15,11 @@
       "@shared/*": [
         "shared/*"
       ],
-      "@errors/*": [
-        "errors/*"
-      ],
       "@utils/*": [
         "utils/*"
       ],
       "@database/*": [
         "database/*"
-      ],
-      "@middlewares/*": [
-        "middlewares/*"
       ]
     },
     "esModuleInterop": true,

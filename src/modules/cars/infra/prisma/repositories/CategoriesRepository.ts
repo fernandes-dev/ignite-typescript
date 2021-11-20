@@ -1,10 +1,6 @@
-import {
-  CategoryEntity,
-  Category,
-  CategoryType,
-} from '@modules/cars/entities/Category'
+import { ICategoriesRepository } from '@modules/cars/repositories/ICategoriesRepository'
 
-import { ICategoriesRepository } from '../ICategoriesRepository'
+import { CategoryEntity, Category, CategoryType } from '../entities/Category'
 
 interface ICreateCategoryDTO {
   name: string

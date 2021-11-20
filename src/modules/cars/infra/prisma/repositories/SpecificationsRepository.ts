@@ -1,19 +1,19 @@
 import {
+  ISpecificationsRepository,
+  ICreateSpecificationDTO,
+} from '@modules/cars/repositories/ISpecificationsRepository'
+
+import {
   SpecificationEntity,
   Specification,
   SpecificationType,
-} from '@modules/cars/entities/Specification'
-
-import {
-  ISpecificationsRepository,
-  ICreateSpecificationDTO,
-} from '../ISpecificationsRepository'
+} from '../entities/Specification'
 
 class SpecificationsRepository implements ISpecificationsRepository {
   private repository: SpecificationEntity
 
   constructor() {
-    this.repository = new Specification().instance()
+    this.repository = Specification.instance()
   }
 
   async create({

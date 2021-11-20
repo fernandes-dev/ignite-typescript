@@ -1,8 +1,8 @@
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '@modules/accounts/dtos/IUpdateUserDTO'
-import { UserEntity, User, UserType } from '@modules/accounts/entities/User'
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 
-import { IUsersRepository } from '../IUsersRepository'
+import { UserEntity, User, UserType } from '../entities/User'
 
 class UsersRepository implements IUsersRepository {
   private repository: UserEntity
