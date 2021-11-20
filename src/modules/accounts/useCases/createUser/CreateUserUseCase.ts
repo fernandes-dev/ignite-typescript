@@ -2,7 +2,7 @@ import { hash } from 'bcrypt'
 import { inject, injectable } from 'tsyringe'
 
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
-import { UserType } from '@modules/accounts/infra/prisma/entities/User'
+import { User } from '@modules/accounts/infra/prisma/entities/User'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 import { AppError } from '@shared/errors/AppError'
 
@@ -18,7 +18,7 @@ class CreateUserUseCase {
     email,
     password,
     driver_license,
-  }: ICreateUserDTO): Promise<UserType> {
+  }: ICreateUserDTO): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email)
 
     if (userAlreadyExists) throw new AppError('User already exists')

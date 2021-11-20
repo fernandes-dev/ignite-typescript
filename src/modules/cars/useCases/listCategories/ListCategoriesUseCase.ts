@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { CategoryType } from '@modules/cars/entities/Category'
+import { Category } from '@modules/cars/infra/prisma/entities/Category'
 import { ICategoriesRepository } from '@modules/cars/repositories/ICategoriesRepository'
 
 @injectable()
@@ -10,7 +10,7 @@ class ListCategoriesUseCase {
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  async execute(): Promise<CategoryType[]> {
+  async execute(): Promise<Category[]> {
     const categories = await this.categoriesRepository.list()
 
     return categories

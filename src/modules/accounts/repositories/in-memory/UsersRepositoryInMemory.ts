@@ -1,18 +1,18 @@
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '@modules/accounts/dtos/IUpdateUserDTO'
-import { UserType, User } from '@modules/accounts/entities/User'
+import { User } from '@modules/accounts/infra/prisma/entities/User'
 
 import { IUsersRepository } from '../IUsersRepository'
 
 class UsersRepositoryInMemory implements IUsersRepository {
-  users: UserType[] = []
+  users: User[] = []
 
   async create({
     name,
     email,
     password,
     driver_license,
-  }: ICreateUserDTO): Promise<UserType> {
+  }: ICreateUserDTO): Promise<User> {
     const user = new User()
 
     Object.assign(user, { name, email, password, driver_license })
@@ -21,13 +21,13 @@ class UsersRepositoryInMemory implements IUsersRepository {
 
     return user
   }
-  async findByEmail(email: string): Promise<UserType> {
+  async findByEmail(email: string): Promise<User> {
     return this.users.find(u => u.email === email)
   }
-  async findById(user_id: string): Promise<UserType> {
+  async findById(user_id: string): Promise<User> {
     return this.users.find(u => u.id === user_id)
   }
-  async update(data: IUpdateUserDTO): Promise<UserType> {
+  async update(data: IUpdateUserDTO): Promise<User> {
     const userIndex = this.users.findIndex(u => u.id === data.user_id)
 
     const user = { ...this.users[userIndex] }

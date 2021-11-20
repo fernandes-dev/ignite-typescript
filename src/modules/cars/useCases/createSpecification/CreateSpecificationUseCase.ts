@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { SpecificationType } from '@modules/cars/infra/prisma/entities/Specification'
+import { Specification } from '@modules/cars/infra/prisma/entities/Specification'
 import { ISpecificationsRepository } from '@modules/cars/repositories/ISpecificationsRepository'
 import { AppError } from '@shared/errors/AppError'
 
@@ -16,7 +16,7 @@ class CreateSpecificationUseCase {
     private specificationsRepository: ISpecificationsRepository
   ) {}
 
-  async execute({ name, description }: IRequest): Promise<SpecificationType> {
+  async execute({ name, description }: IRequest): Promise<Specification> {
     const existentSpecification =
       await this.specificationsRepository.findByName(name)
 

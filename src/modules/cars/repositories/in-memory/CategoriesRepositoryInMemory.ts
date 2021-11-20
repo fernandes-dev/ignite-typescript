@@ -1,25 +1,22 @@
-import { CategoryType, Category } from '@modules/cars/entities/Category'
+import { Category } from '@modules/cars/infra/prisma/entities/Category'
+import { ICreateCategoryDTO } from '@modules/cars/infra/prisma/repositories/CategoriesRepository'
 
 import { ICategoriesRepository } from '../ICategoriesRepository'
-import { ICreateCategoryDTO } from '../implementations/CategoriesRepository'
 
 class CategoriesRepositoryInMemory implements ICategoriesRepository {
-  categories: CategoryType[] = []
+  categories: Category[] = []
 
-  async findByName(name: string): Promise<CategoryType> {
+  async findByName(name: string): Promise<Category> {
     const category = this.categories.find(c => c.name === name)
 
     return category
   }
 
-  async list(): Promise<CategoryType[]> {
+  async list(): Promise<Category[]> {
     return this.categories
   }
 
-  async create({
-    name,
-    description,
-  }: ICreateCategoryDTO): Promise<CategoryType> {
+  async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
     const category = new Category()
 
     Object.assign(category, { name, description })

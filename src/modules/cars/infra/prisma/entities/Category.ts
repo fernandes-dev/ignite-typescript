@@ -2,13 +2,11 @@ import { v4 as uuidV4 } from 'uuid'
 
 import { database } from '@shared/infra/prisma/databaseConnection'
 
-import { categories, Prisma } from '.prisma/client'
+import { Prisma } from '.prisma/client'
 
 export type CategoryEntity = Prisma.categoriesDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
 >
-
-export type CategoryType = categories
 
 class Category {
   private static categories: CategoryEntity
@@ -22,11 +20,9 @@ class Category {
   created_at: Date
 
   constructor() {
-    return {
-      id: uuidV4(),
-      name: this.name,
-      description: this.description,
-      created_at: new Date(),
+    if (!this.id) {
+      this.id = uuidV4()
+      this.created_at = new Date()
     }
   }
 

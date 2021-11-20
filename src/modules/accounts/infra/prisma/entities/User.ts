@@ -2,13 +2,11 @@ import { v4 as uuidV4 } from 'uuid'
 
 import { database } from '@shared/infra/prisma/databaseConnection'
 
-import { Prisma, users } from '.prisma/client'
+import { Prisma } from '.prisma/client'
 
 export type UserEntity = Prisma.usersDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
 >
-
-export type UserType = users
 
 class User {
   private static users: UserEntity
@@ -23,15 +21,9 @@ class User {
   created_at: Date
 
   constructor() {
-    return {
-      id: uuidV4(),
-      name: this.name,
-      email: this.email,
-      password: this.password,
-      avatar: this.avatar,
-      driver_license: this.driver_license,
-      is_admin: this.is_admin,
-      created_at: new Date(),
+    if (!this.id) {
+      this.id = uuidV4()
+      this.created_at = new Date()
     }
   }
 

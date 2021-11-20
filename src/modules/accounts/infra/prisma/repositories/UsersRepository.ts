@@ -2,7 +2,7 @@ import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '@modules/accounts/dtos/IUpdateUserDTO'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 
-import { UserEntity, User, UserType } from '../entities/User'
+import { UserEntity, User } from '../entities/User'
 
 class UsersRepository implements IUsersRepository {
   private repository: UserEntity
@@ -16,7 +16,7 @@ class UsersRepository implements IUsersRepository {
     email,
     password,
     driver_license,
-  }: ICreateUserDTO): Promise<UserType> {
+  }: ICreateUserDTO): Promise<User> {
     const user = await this.repository.create({
       data: { name, email, password, driver_license },
     })
@@ -24,13 +24,13 @@ class UsersRepository implements IUsersRepository {
     return user
   }
 
-  async findByEmail(email: string): Promise<UserType> {
+  async findByEmail(email: string): Promise<User> {
     const user = await this.repository.findFirst({ where: { email } })
 
     return user
   }
 
-  async findById(user_id: string): Promise<UserType> {
+  async findById(user_id: string): Promise<User> {
     const user = await this.repository.findUnique({ where: { id: user_id } })
 
     return user
@@ -44,7 +44,7 @@ class UsersRepository implements IUsersRepository {
     avatar,
     driver_license,
     is_admin,
-  }: IUpdateUserDTO): Promise<UserType> {
+  }: IUpdateUserDTO): Promise<User> {
     const user = await this.repository.update({
       data: {
         name,
