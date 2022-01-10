@@ -17,11 +17,12 @@ model categories {
 }
 
 model specifications {
-  id          String    @id @default(uuid())
-  name        String
-  description String?
-  created_at  DateTime? @default(now())
-  updated_at  DateTime  @default(now())
+  id                  String                @id @default(uuid())
+  name                String
+  description         String?
+  created_at          DateTime?             @default(now())
+  updated_at          DateTime              @default(now())
+  specifications_cars specifications_cars[]
 }
 
 model users {
@@ -37,16 +38,26 @@ model users {
 }
 
 model cars {
-  id            String      @id @default(uuid())
-  name          String
-  description   String
-  daily_rate    Float
-  available     Boolean     @default(true)
-  license_plate String
-  fine_amount   Float
-  brand         String
-  category_id   String?
-  created_at    DateTime    @default(now())
-  updated_at    DateTime    @default(now())
-  category      categories? @relation(fields: [category_id], references: [id], onUpdate: SetNull)
+  id                  String                @id @default(uuid())
+  name                String
+  description         String
+  daily_rate          Float
+  available           Boolean               @default(true)
+  license_plate       String
+  fine_amount         Float
+  brand               String
+  category_id         String?
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @default(now())
+  category            categories?           @relation(fields: [category_id], references: [id], onUpdate: SetNull)
+  specifications_cars specifications_cars[]
+}
+
+model specifications_cars {
+  id                String         @id @default(uuid())
+  car_id            String
+  specifications_id String
+  created_at        DateTime       @default(now())
+  car               cars           @relation(fields: [car_id], references: [id])
+  specification     specifications @relation(fields: [specifications_id], references: [id])
 }

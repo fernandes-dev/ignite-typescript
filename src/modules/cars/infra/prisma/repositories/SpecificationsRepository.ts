@@ -3,11 +3,7 @@ import {
   ICreateSpecificationDTO,
 } from '@modules/cars/repositories/ISpecificationsRepository'
 
-import {
-  SpecificationEntity,
-  Specification,
-  SpecificationType,
-} from '../entities/Specification'
+import { SpecificationEntity, Specification } from '../entities/Specification'
 
 class SpecificationsRepository implements ISpecificationsRepository {
   private repository: SpecificationEntity
@@ -19,7 +15,7 @@ class SpecificationsRepository implements ISpecificationsRepository {
   async create({
     name,
     description,
-  }: ICreateSpecificationDTO): Promise<SpecificationType> {
+  }: ICreateSpecificationDTO): Promise<Specification> {
     const specification = await this.repository.create({
       data: { name, description },
     })
@@ -27,10 +23,20 @@ class SpecificationsRepository implements ISpecificationsRepository {
     return specification
   }
 
-  async findByName(name: string): Promise<SpecificationType> {
+  async findByName(name: string): Promise<Specification> {
     const specification = await this.repository.findFirst({ where: { name } })
 
     return specification
+  }
+
+  async findByIds(ids: string[]): Promise<Specification[]> {
+    const specifications = await this.repository.findMany({
+      where: {
+        id: { in: ids },
+      },
+    })
+
+    return specifications
   }
 }
 

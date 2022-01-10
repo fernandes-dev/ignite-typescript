@@ -5,6 +5,8 @@ import { database } from '@shared/infra/prisma/databaseConnection'
 
 import { Prisma } from '.prisma/client'
 
+import { Specification } from './Specification'
+
 export type CarEntity = Prisma.carsDelegate<
   Prisma.RejectOnNotFound | Prisma.RejectPerOperation
 >
@@ -33,6 +35,8 @@ class Car {
   created_at: Date
 
   updated_at: Date
+
+  specifications?: Specification[]
 
   constructor() {
     if (!this.id) {

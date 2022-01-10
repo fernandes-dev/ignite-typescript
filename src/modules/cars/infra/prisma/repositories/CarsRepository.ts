@@ -18,17 +18,39 @@ class CarsRepository implements ICarsRepository {
     brand,
     license_plate,
     category_id,
+    specifications,
+    id,
   }: ICreateCarDTO): Promise<Car> {
-    const car = await this.repository.create({
-      data: {
-        name,
-        description,
-        daily_rate,
-        fine_amount,
-        brand,
-        license_plate,
-        category_id,
+    const specifications_cars = specifications.map(s => {
+      return { specifications_id: s.id }
+    })
+
+    const data = {
+      name,
+      description,
+      daily_rate,
+      fine_amount,
+      brand,
+      license_plate,
+      category_id,
+      id,
+    }
+
+    const car = await this.repository.upsert({
+      create: {
+        ...data,
+        specifications_cars: {
+          createMany: { data: specifications_cars },
+        },
       },
+      update: {
+        ...data,
+        specifications_cars: {
+          deleteMany: { car_id: id },
+          createMany: { data: specifications_cars },
+        },
+      },
+      where: { id },
     })
 
     return car
@@ -58,6 +80,12 @@ class CarsRepository implements ICarsRepository {
     })
 
     return cars
+  }
+
+  async findById(car_id: string): Promise<Car> {
+    const car = await this.repository.findUnique({ where: { id: car_id } })
+
+    return car
   }
 }
 
