@@ -39,6 +39,26 @@ class CarsRepository implements ICarsRepository {
 
     return car
   }
+
+  async findAvailable(
+    brand?: string,
+    category_id?: string,
+    name?: string
+  ): Promise<Car[]> {
+    const filter = {
+      available: true,
+    }
+
+    if (brand) Object.assign(filter, { brand })
+    if (category_id) Object.assign(filter, { category_id })
+    if (name) Object.assign(filter, { name })
+
+    const cars = await this.repository.findMany({
+      where: filter,
+    })
+
+    return cars
+  }
 }
 
 export { CarsRepository }

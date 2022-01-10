@@ -1,10 +1,10 @@
-import { hash } from 'bcrypt'
 import { inject, injectable } from 'tsyringe'
 
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { User } from '@modules/accounts/infra/prisma/entities/User'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 import { AppError } from '@shared/errors/AppError'
+import { makeHash } from '@shared/infra/bcrypt'
 
 @injectable()
 class CreateUserUseCase {
@@ -23,7 +23,7 @@ class CreateUserUseCase {
 
     if (userAlreadyExists) throw new AppError('User already exists')
 
-    const passwordHash = await hash(password, 8)
+    const passwordHash = await makeHash(password)
 
     const user = await this.usersRepository.create({
       name,

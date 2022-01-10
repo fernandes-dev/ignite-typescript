@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --inspect --ignore-watch node_modules --respawn --exit-child src/shared/infra/http/server.ts",
     "db:start": "docker-compose up -d",
-    "test": "jest"
+    "test": "jest",
+    "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/prisma/seed/admin.ts"
   },
   "dependencies": {
     "@prisma/client": "^3.4.2",

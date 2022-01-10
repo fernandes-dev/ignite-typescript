@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidV4 } from 'uuid'
 
 import { database } from '@shared/infra/prisma/databaseConnection'
