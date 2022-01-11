@@ -1,14 +1,18 @@
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '@modules/accounts/dtos/IUpdateUserDTO'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+import { Prisma } from '@prisma/client'
+import { database } from '@shared/infra/prisma/databaseConnection'
 
-import { UserEntity, User } from '../entities/User'
+import { User } from '../entities/User'
 
 class UsersRepository implements IUsersRepository {
-  private repository: UserEntity
+  private repository: Prisma.usersDelegate<
+    Prisma.RejectOnNotFound | Prisma.RejectPerOperation
+  >
 
   constructor() {
-    this.repository = User.instance()
+    this.repository = database.users
   }
 
   async create({

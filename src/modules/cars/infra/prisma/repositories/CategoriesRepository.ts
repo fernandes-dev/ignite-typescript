@@ -1,6 +1,8 @@
 import { ICategoriesRepository } from '@modules/cars/repositories/ICategoriesRepository'
+import { Prisma } from '@prisma/client'
+import { database } from '@shared/infra/prisma/databaseConnection'
 
-import { CategoryEntity, Category, CategoryType } from '../entities/Category'
+import { Category } from '../entities/Category'
 
 interface ICreateCategoryDTO {
   name: string
@@ -8,16 +10,15 @@ interface ICreateCategoryDTO {
 }
 
 class CategoriesRepository implements ICategoriesRepository {
-  private repository: CategoryEntity
+  private repository: Prisma.categoriesDelegate<
+    Prisma.RejectOnNotFound | Prisma.RejectPerOperation
+  >
 
   constructor() {
-    this.repository = Category.instance()
+    this.repository = database.categories
   }
 
-  async create({
-    name,
-    description,
-  }: ICreateCategoryDTO): Promise<CategoryType> {
+  async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
     const category = await this.repository.create({
       data: { name, description },
     })
@@ -25,13 +26,13 @@ class CategoriesRepository implements ICategoriesRepository {
     return category
   }
 
-  async list(): Promise<CategoryType[]> {
+  async list(): Promise<Category[]> {
     const categories = await this.repository.findMany()
 
     return categories
   }
 
-  async findByName(name: string): Promise<CategoryType> {
+  async findByName(name: string): Promise<Category> {
     const category = await this.repository.findFirst({ where: { name } })
 
     return category

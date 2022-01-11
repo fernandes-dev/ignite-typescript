@@ -2,14 +2,17 @@ import {
   ISpecificationsRepository,
   ICreateSpecificationDTO,
 } from '@modules/cars/repositories/ISpecificationsRepository'
+import { Prisma } from '@prisma/client'
+import { database } from '@shared/infra/prisma/databaseConnection'
 
-import { SpecificationEntity, Specification } from '../entities/Specification'
+import { Specification } from '../entities/Specification'
 
 class SpecificationsRepository implements ISpecificationsRepository {
-  private repository: SpecificationEntity
-
+  private repository: Prisma.specificationsDelegate<
+    Prisma.RejectOnNotFound | Prisma.RejectPerOperation
+  >
   constructor() {
-    this.repository = Specification.instance()
+    this.repository = database.specifications
   }
 
   async create({

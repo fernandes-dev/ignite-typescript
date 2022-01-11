@@ -1,13 +1,19 @@
+import { v4 as uuidV4 } from 'uuid'
+
 import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO'
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository'
+import { Prisma } from '@prisma/client'
+import { database } from '@shared/infra/prisma/databaseConnection'
 
-import { Car, CarEntity } from '../entities/Car'
+import { Car } from '../entities/Car'
 
 class CarsRepository implements ICarsRepository {
-  private repository: CarEntity
+  private repository: Prisma.carsDelegate<
+    Prisma.RejectOnNotFound | Prisma.RejectPerOperation
+  >
 
   constructor() {
-    this.repository = Car.instance()
+    this.repository = database.cars
   }
 
   async create({
@@ -21,7 +27,7 @@ class CarsRepository implements ICarsRepository {
     specifications,
     id,
   }: ICreateCarDTO): Promise<Car> {
-    const specifications_cars = specifications.map(s => {
+    const specifications_cars = specifications?.map(s => {
       return { specifications_id: s.id }
     })
 
@@ -36,21 +42,28 @@ class CarsRepository implements ICarsRepository {
       id,
     }
 
-    const car = await this.repository.upsert({
-      create: {
-        ...data,
+    const dataForCreate = { ...data }
+    const dataForUpdate = { ...data }
+
+    if (specifications_cars) {
+      Object.assign(dataForCreate, {
         specifications_cars: {
           createMany: { data: specifications_cars },
         },
-      },
-      update: {
-        ...data,
+      })
+
+      Object.assign(dataForUpdate, {
         specifications_cars: {
           deleteMany: { car_id: id },
           createMany: { data: specifications_cars },
         },
-      },
-      where: { id },
+      })
+    }
+
+    const car = await this.repository.upsert({
+      create: dataForCreate,
+      update: dataForUpdate,
+      where: { id: id || uuidV4() },
     })
 
     return car
