@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { Car } from '@modules/cars/infra/prisma/entities/Car'
+import { Car } from '@modules/cars/entities/Car'
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository'
 
 interface IRequest {

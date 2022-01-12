@@ -1,11 +1,10 @@
+import { Specification } from '@modules/cars/entities/Specification'
 import {
   ISpecificationsRepository,
   ICreateSpecificationDTO,
 } from '@modules/cars/repositories/ISpecificationsRepository'
 import { Prisma } from '@prisma/client'
 import { database } from '@shared/infra/prisma/databaseConnection'
-
-import { Specification } from '../entities/Specification'
 
 class SpecificationsRepository implements ISpecificationsRepository {
   private repository: Prisma.specificationsDelegate<

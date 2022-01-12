@@ -1,8 +1,7 @@
+import { CarImage } from '@modules/cars/entities/CarImage'
 import { ICarImagesRepository } from '@modules/cars/repositories/ICarImagesRepository'
 import { Prisma } from '@prisma/client'
 import { database } from '@shared/infra/prisma/databaseConnection'
-
-import { CarImage } from '../entities/CarImage'
 
 class CarImagesRepository implements ICarImagesRepository {
   private repository: Prisma.car_imagesDelegate<

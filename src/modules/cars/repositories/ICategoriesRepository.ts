@@ -1,4 +1,4 @@
-import { Category } from '../infra/prisma/entities/Category'
+import { Category } from '../entities/Category'
 import { ICreateCategoryDTO } from '../infra/prisma/repositories/CategoriesRepository'
 
 interface ICategoriesRepository {

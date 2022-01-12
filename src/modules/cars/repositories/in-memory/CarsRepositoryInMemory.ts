@@ -1,5 +1,5 @@
 import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO'
-import { Car } from '@modules/cars/infra/prisma/entities/Car'
+import { Car } from '@modules/cars/entities/Car'
 
 import { ICarsRepository } from '../ICarsRepository'
 

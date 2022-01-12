@@ -1,4 +1,4 @@
-import { Specification } from '@modules/cars/infra/prisma/entities/Specification'
+import { Specification } from '@modules/cars/entities/Specification'
 
 import {
   ICreateSpecificationDTO,

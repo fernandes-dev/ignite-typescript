@@ -1,11 +1,10 @@
 import { v4 as uuidV4 } from 'uuid'
 
 import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO'
+import { Car } from '@modules/cars/entities/Car'
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository'
 import { Prisma } from '@prisma/client'
 import { database } from '@shared/infra/prisma/databaseConnection'
-
-import { Car } from '../entities/Car'
 
 class CarsRepository implements ICarsRepository {
   private repository: Prisma.carsDelegate<

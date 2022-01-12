@@ -1,4 +1,4 @@
-import { Specification } from '../infra/prisma/entities/Specification'
+import { Specification } from '../entities/Specification'
 
 interface ICreateSpecificationDTO {
   name: string

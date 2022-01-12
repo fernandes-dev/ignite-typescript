@@ -35,6 +35,7 @@ model users {
   is_admin       Boolean   @default(false)
   created_at     DateTime? @default(now())
   updated_at     DateTime  @default(now())
+  rentals        rentals[]
 }
 
 model cars {
@@ -52,6 +53,7 @@ model cars {
   category            categories?           @relation(fields: [category_id], references: [id], onUpdate: SetNull)
   specifications_cars specifications_cars[]
   car_images          car_images[]
+  rentals             rentals[]
 }
 
 model specifications_cars {
@@ -69,4 +71,18 @@ model car_images {
   car_id     String   @db.Uuid
   image_name String   @db.VarChar
   created_at DateTime @default(now())
+}
+
+model rentals {
+  id                   String    @id @default(uuid()) @db.Uuid
+  car_id               String    @db.Uuid
+  car                  cars      @relation(fields: [car_id], references: [id])
+  user_id              String    @db.Uuid
+  user                 users     @relation(fields: [user_id], references: [id])
+  start_date           DateTime  @default(now())
+  end_date             DateTime?
+  expected_return_date DateTime
+  total                Float?
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @default(now())
 }

@@ -1,8 +1,7 @@
+import { Category } from '@modules/cars/entities/Category'
 import { ICategoriesRepository } from '@modules/cars/repositories/ICategoriesRepository'
 import { Prisma } from '@prisma/client'
 import { database } from '@shared/infra/prisma/databaseConnection'
-
-import { Category } from '../entities/Category'
 
 interface ICreateCategoryDTO {
   name: string

@@ -1,4 +1,4 @@
-import { Category } from '@modules/cars/infra/prisma/entities/Category'
+import { Category } from '@modules/cars/entities/Category'
 import { ICreateCategoryDTO } from '@modules/cars/infra/prisma/repositories/CategoriesRepository'
 
 import { ICategoriesRepository } from '../ICategoriesRepository'

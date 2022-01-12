@@ -1,6 +1,6 @@
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '@modules/accounts/dtos/IUpdateUserDTO'
-import { User } from '@modules/accounts/infra/prisma/entities/User'
+import { User } from '@modules/accounts/entities/User'
 
 import { IUsersRepository } from '../IUsersRepository'
 
