@@ -1,10 +1,9 @@
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '@modules/accounts/dtos/IUpdateUserDTO'
+import { User } from '@modules/accounts/entities/User'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 import { Prisma } from '@prisma/client'
 import { database } from '@shared/infra/prisma/databaseConnection'
-
-import { User } from '../entities/User'
 
 class UsersRepository implements IUsersRepository {
   private repository: Prisma.usersDelegate<
